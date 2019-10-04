@@ -12,15 +12,7 @@ import XCTest
 class SimpleCalcTests: XCTestCase {
     let calcul = SimpleCalc()
 
-    func testGivenElementsAreInOrderFivePlusAndSix_WhenCalculIsCalled_ThenReturnShouldBeEleven () {
-        let elements = ["5", "+", "6"]
-
-        let result = calcul.calcul(operations: elements)
-
-        XCTAssertEqual(result, "11.0")
-    }
-
-    func testGivenElementsAreInOrderEightyEightPlusAndSix_WhenCalculIsCalled_ThenReturnShouldBeNinetyFour () {
+    func testGivenElementsAreInOrderEightyEightPlusAndSix_WhenCalculIsCalled_ThenReturnShouldBeNinetyFour() {
         let elements = ["88", "+", "6"]
 
         let result = calcul.calcul(operations: elements)
@@ -28,47 +20,31 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(result, "94.0")
     }
 
-    func testGivenElementsAreInOrderThirtySixPlusAndNinetySeven_WhenCalculIsCalled_ThenReturnShouldBe133 () {
-        let elements = ["36", "+", "97"]
+    func testGivenElementsAreInOrderThirtySixLessAndNinetySeven_WhenCalculIsCalled_ThenReturnShouldBe3492() {
+        let elements = ["36", "x", "97"]
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "133.0")
+        XCTAssertEqual(result, "3492.0")
     }
 
-    func testGivenElementsAreInOrder308PlusAnd773_WhenCalculIsCalled_ThenReturnShouldBe1081 () {
-        let elements = ["308", "+", "773"]
+    func testGivenElementsAreInOrder308PlusAnd773_WhenCalculIsCalled_ThenReturnShouldBeLess465() {
+        let elements = ["308", "-", "773"]
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "1081.0")
+        XCTAssertEqual(result, "-465.0")
     }
 
-    func testGivenElementsAreInOrderFiveLessAndSix_WhenCalculIsCalled_ThenReturnShouldBeLessOne () {
-        let elements = ["5", "-", "6"]
+    func testGivenElementsAreInOrderEightyDivAndSixtyThree_WhenCalculIsCalled_ThenReturnShouldBe1Dot269() {
+        let elements = ["80", "÷", "63"]
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "-1.0")
+        XCTAssertEqual(result, "1.269")
     }
 
-    func testGivenElementsAreInOrderEightyLessAndSixtyThree_WhenCalculIsCalled_ThenReturnShouldBeSeventeen () {
-        let elements = ["80", "-", "63"]
-
-        let result = calcul.calcul(operations: elements)
-
-        XCTAssertEqual(result, "17.0")
-    }
-
-    func testGivenElementsAreInOrder656LessAnd723_WhenCalculIsCalled_ThenReturnShouldBeLess67 () {
-        let elements = ["656", "-", "723"]
-
-        let result = calcul.calcul(operations: elements)
-
-        XCTAssertEqual(result, "-67.0")
-    }
-
-    func testGivenElementsAreInOrderPlusFiveAndSix_WhenCalculIsCalled_ThenReturnShouldBeNil () {
+    func testGivenElementsAreInOrderPlusFiveAndSix_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "+", "5", "6"]
 
         let result = calcul.calcul(operations: elements)
@@ -76,15 +52,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGivenElementsAreInOrderLessSixtyAndThree_WhenCalculIsCalled_ThenReturnShouldBeNil () {
-        let elements = [ "-", "60", "3"]
-
-        let result = calcul.calcul(operations: elements)
-
-        XCTAssertNil(result)
-    }
-
-    func testGivenElementsAreInOrderFortyNineteenAndLess_WhenCalculIsCalled_ThenReturnShouldBeNil () {
+    func testGivenElementsAreInOrderFortyNineteenAndLess_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "40", "19", "-"]
 
         let result = calcul.calcul(operations: elements)
@@ -92,7 +60,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGivenElementsAreInOrderTwentySevenPlusFortyFiveAndLess_WhenCalculIsCalled_ThenReturnShouldBeNil () {
+    func testGivenElementsAreInOrderTwentySevenPlusFortyFiveAndLess_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "27", "+", "45", "-"]
 
         let result = calcul.calcul(operations: elements)
@@ -100,7 +68,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGivenElementsAreInOrderLessEightLessAndNineteen_WhenCalculIsCalled_ThenReturnShouldBeNil () {
+    func testGivenElementsAreInOrderLessEightLessAndNineteen_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "-", "8", "-", "19"]
 
         let result = calcul.calcul(operations: elements)
@@ -108,8 +76,16 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGivenElementsLess8Less19Less_WhenCalculIsCalled_ThenReturnShouldBeNil () {
+    func testGivenElementsLess8Less19Less_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "-", "8", "-", "19", "-"]
+
+        let result = calcul.calcul(operations: elements)
+
+        XCTAssertNil(result)
+    }
+
+    func testGivenElementsAre54LessLess62And5_WhenCalculIsCalled_ThenReturnShouldBeNil() {
+        let elements = ["54", "-", "-", "62", "5"]
 
         let result = calcul.calcul(operations: elements)
 
@@ -137,7 +113,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "37.848484")
+        XCTAssertEqual(result, "37.848")
     }
 
     func testGivenElementsAreInOrder76Multi10Less31Div46_WhenCalculIsCalled_ThenReturnShouldBe759Dot3261() {
@@ -145,7 +121,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "759.3261")
+        XCTAssertEqual(result, "759.326")
     }
 
     func testGivenElementsAreInOrder74Multi68Div0_WhenCalculIsCalled_ThenReturnShouldBeNil() {
@@ -161,7 +137,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "91.48572")
+        XCTAssertEqual(result, "91.485")
     }
 
     func testGivenElementsAreInOrder64Less43Multi14Div5_WhenCalculIsCalled_ThenReturnShouldBeLess56Dot4() {
@@ -169,7 +145,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "-56.4")
+        XCTAssertEqual(result, "-56.400")
     }
 
     func testGivenElementsAreInOrder916Plus728Multi96_WhenCalculIsCalled_ThenReturnShouldBe70804() {
@@ -185,6 +161,6 @@ class SimpleCalcTests: XCTestCase {
 
         let result = calcul.calcul(operations: elements)
 
-        XCTAssertEqual(result, "-21389.484")
+        XCTAssertEqual(result, "-21389.483")
     }
 }

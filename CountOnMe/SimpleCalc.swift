@@ -134,10 +134,8 @@ class SimpleCalc {
 
     private func roundResult(result: String) -> String {
         var splitResult = result.split(separator: ".")
-        if splitResult[1].count >= 4 {
-            return splitResult[0] + "." + splitResult[1].dropLast(splitResult[1].count - 2)
-        } else if splitResult[1].count == 3 {
-            return splitResult[0] + "." + splitResult[1].dropLast(splitResult[1].count - 1)
+        if splitResult[1].count >= 5 {
+            return splitResult[0] + "." + splitResult[1].dropLast(splitResult[1].count - 3)
         } else {
             return result
         }
