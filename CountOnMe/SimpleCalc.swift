@@ -21,7 +21,8 @@ class SimpleCalc {
                 }
 
             } else {
-                if Double(elements[index]) != nil {
+                if elements[index] != "+" && elements[index] != "-"
+                    && elements[index] != "x" && elements[index] != "÷" {
                     isCorrect = false
                 }
             }
@@ -49,7 +50,7 @@ class SimpleCalc {
     }
 
     // Check if the expression contains a division by zero
-    func expressionContainsDivisionByZero (elements: [String]) -> Bool {
+    /*func expressionContainsDivisionByZero (elements: [String]) -> Bool {
         if elements.contains("÷") && !lastElementIsDivision(elements: elements) {
             let indexDivision = elements.firstIndex(of: "÷")
 
@@ -61,37 +62,36 @@ class SimpleCalc {
         } else {
             return false
         }
-    }
+    }*/
 
     // Check if the expression can be calculated
     private func expressionCanBeCalculated(elements: [String]) -> Bool {
         guard expressionHaveEnoughElement(elements: elements) else { return false}
-        guard !expressionContainsDivisionByZero(elements: elements) else { return false }
         guard expressionIsCorrect(elements: elements) else { return false }
         return true
     }
 
     // Fonction which makes the calcul
-    func calcul (operations: [String]) -> String? {
-        var operationsToReduce = operations
+    /*func calcul (elements: [String]) -> String? {
+        var operationsToReduce = elements
         var operand: String
         var result: Double?
-
+        
         while expressionCanBeCalculated(elements: operationsToReduce) {
-
+            
             if let indexOperand = operationsToReduce.firstIndex(where: { (element) -> Bool in
                 element == "x" || element == "÷" }) {
                 operand = operationsToReduce[indexOperand]
                 if let firstNumber = Double(operationsToReduce[indexOperand - 1]),
                     let secondNumber = Double(operationsToReduce[indexOperand + 1]) {
-
+                    
                     switch operand {
                     case "x": result = firstNumber * secondNumber
                     case "÷": result = firstNumber / secondNumber
                     default: return nil
                     }
                 }
-
+                
                 operationsToReduce.removeSubrange(indexOperand-1...indexOperand+1)
                 if let calculResult = result {
                     operationsToReduce.insert("\(calculResult)", at: indexOperand-1)
@@ -99,13 +99,45 @@ class SimpleCalc {
             } else {
                 operand = operationsToReduce[1]
                 if let firstNumber = Double(operationsToReduce[0]), let secondNumber = Double(operationsToReduce[2]) {
-
+                    
                     switch operand {
                     case "+": result = firstNumber + secondNumber
                     case "-": result = firstNumber - secondNumber
                     default: result = nil
                     }
                 }
+                
+                operationsToReduce = Array(operationsToReduce.dropFirst(3))
+                if let calculResult = result {
+                    operationsToReduce.insert("\(calculResult)", at: 0)
+                }
+            }
+        }
+        
+        if let calculResult = operationsToReduce.first, operationsToReduce.count == 1 {
+            return roundResult(result: calculResult)
+        } else {
+            return nil
+        }
+    } */
+
+    // Fonction which makes the calcul
+    func calcul (elements: [String]) -> String? {
+        var operationsToReduce = elements
+        var result: Double?
+
+        while expressionCanBeCalculated(elements: operationsToReduce) {
+
+            if let indexOperand = operationsToReduce.firstIndex(where: { (element) -> Bool in
+                element == "x" || element == "÷" }) {
+                result = multiplicationAndDivision(indexOperand: indexOperand, operationsToReduce: operationsToReduce)
+
+                operationsToReduce.removeSubrange(indexOperand-1...indexOperand+1)
+                if let calculResult = result {
+                    operationsToReduce.insert("\(calculResult)", at: indexOperand-1)
+                }
+            } else {
+                result = additionAndSubstraction(operationsToReduce: operationsToReduce)
 
                 operationsToReduce = Array(operationsToReduce.dropFirst(3))
                 if let calculResult = result {
@@ -121,6 +153,43 @@ class SimpleCalc {
         }
     }
 
+    // Fonction which makes a multiplication or a division
+    private func multiplicationAndDivision(indexOperand: Int, operationsToReduce: [String]) -> Double? {
+        let operand = operationsToReduce[indexOperand]
+
+        if let firstNumber = Double(operationsToReduce[indexOperand - 1]),
+            let secondNumber = Double(operationsToReduce[indexOperand + 1]) {
+            switch operand {
+            case "x": return firstNumber * secondNumber
+            case "÷":
+                if secondNumber == 0 {
+                    return nil
+                } else {
+                    return firstNumber / secondNumber
+                }
+            default: return nil
+            }
+        } else {
+            return nil
+        }
+    }
+
+    // Fonction which makes an addition or a substraction
+    private func additionAndSubstraction(operationsToReduce: [String]) -> Double? {
+        let operand = operationsToReduce[1]
+
+        if let firstNumber = Double(operationsToReduce[0]), let secondNumber = Double(operationsToReduce[2]) {
+            switch operand {
+            case "+": return firstNumber + secondNumber
+            case "-": return firstNumber - secondNumber
+            default: return nil
+            }
+        } else {
+            return nil
+        }
+    }
+
+    // Fonction which round the result
     private func roundResult(result: String) -> String {
         var splitResult = result.split(separator: ".")
         if splitResult[1].count >= 5 {

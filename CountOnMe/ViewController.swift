@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             return self.present(alertVC, animated: true, completion: nil)
         }
 
-        let result = calcul.calcul(operations: elements)
+        let result = calcul.calcul(elements: elements)
 
         if let calculResult = result {
             textView.text.append(" = \(calculResult)")

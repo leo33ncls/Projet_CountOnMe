@@ -19,9 +19,8 @@ class SimpleCalcUITests: XCTestCase {
         app.launch()
     }
 
-    func testGivenTextViewIsEmpty_ThenButton2IsPressed_ShouldTestViewDisplay2(){
+    func testGivenTextViewIsEmpty_ThenButton2IsPressed_ShouldTestViewDisplay2() {
 
-        let app = XCUIApplication()
         app.buttons["4"].tap()
         app.buttons["5"].tap()
 
