@@ -156,7 +156,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(result, "70804.0")
     }
 
-    func testGivenElementsAreInOrder271Plus583Less844Div31Multi817_WhenCalculIsCalled_ThenReturnShouldBeLess21389Dot4839() {
+    func testGivenElementsAre271Plus583Less844Div31Multi817_WhenCalculIsCalled_ThenReturnShouldBeLess21389Dot4839() {
         let elements = ["271", "+", "583", "-", "844", "÷", "31", "x", "817"]
 
         let result = calcul.calcul(operations: elements)

@@ -7,19 +7,26 @@
 //
 
 import XCTest
+@testable import CountOnMe
 
 class SimpleCalcUITests: XCTestCase {
+    var app: XCUIApplication!
 
     override func setUp() {
         continueAfterFailure = false
 
-        XCUIApplication().launch()
+        app = XCUIApplication()
+        app.launch()
     }
 
-    override func tearDown() {
-    }
+    func testGivenTextViewIsEmpty_ThenButton2IsPressed_ShouldTestViewDisplay2(){
 
-    func testExample() {
-    }
+        let app = XCUIApplication()
+        app.buttons["4"].tap()
+        app.buttons["5"].tap()
 
+        let textView = app.textViews["textView"]
+
+        XCTAssertEqual(textView.value as? String, "45")
+    }
 }

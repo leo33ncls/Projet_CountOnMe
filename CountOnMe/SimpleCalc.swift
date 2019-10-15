@@ -79,35 +79,24 @@ class SimpleCalc {
 
         while expressionCanBeCalculated(elements: operationsToReduce) {
 
-            if operationsToReduce.contains("x") || operationsToReduce.contains("÷") {
+            if let indexOperand = operationsToReduce.firstIndex(where: { (element) -> Bool in
+                element == "x" || element == "÷" }) {
+                operand = operationsToReduce[indexOperand]
+                if let firstNumber = Double(operationsToReduce[indexOperand - 1]),
+                    let secondNumber = Double(operationsToReduce[indexOperand + 1]) {
 
-                let indexOperand = operationsToReduce.firstIndex(where: { (element) -> Bool in
-                    if element == "x" || element == "÷" {
-                        return true
-                    } else {
-                        return false
-                    }
-                })
-
-                if let indexOpe = indexOperand {
-                    operand = operationsToReduce[indexOpe]
-                    if let firstNumber = Double(operationsToReduce[indexOpe - 1]), let secondNumber = Double(operationsToReduce[indexOpe + 1]) {
-
-                        switch operand {
-                        case "x": result = firstNumber * secondNumber
-                        case "÷": result = firstNumber / secondNumber
-                        default: result = nil
-                        }
-                    }
-
-                    operationsToReduce.removeSubrange(indexOpe-1...indexOpe+1)
-                    if let calculResult = result {
-                        operationsToReduce.insert("\(calculResult)", at: indexOpe-1)
+                    switch operand {
+                    case "x": result = firstNumber * secondNumber
+                    case "÷": result = firstNumber / secondNumber
+                    default: return nil
                     }
                 }
 
+                operationsToReduce.removeSubrange(indexOperand-1...indexOperand+1)
+                if let calculResult = result {
+                    operationsToReduce.insert("\(calculResult)", at: indexOperand-1)
+                }
             } else {
-
                 operand = operationsToReduce[1]
                 if let firstNumber = Double(operationsToReduce[0]), let secondNumber = Double(operationsToReduce[2]) {
 

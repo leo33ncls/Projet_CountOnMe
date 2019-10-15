@@ -38,7 +38,9 @@ class ViewController: UIViewController {
         }
 
         if calcul.lastElementIsDivision(elements: elements) && numberText == "0" {
-            let alertVC = UIAlertController(title: "Attention!", message: "Division par zéro impossible !", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Attention!",
+                                            message: "Division par zéro impossible !",
+                                            preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         } else {
@@ -58,7 +60,9 @@ class ViewController: UIViewController {
             default: return
             }
         } else {
-            let alertVC = UIAlertController(title: "Attention!", message: "Un operateur est déja mis !", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Attention!",
+                                            message: "Un operateur est déja mis !",
+                                            preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
@@ -66,13 +70,17 @@ class ViewController: UIViewController {
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         guard calcul.expressionIsCorrect(elements: elements) else {
-            let alertVC = UIAlertController(title: "Attention!", message: "Entrez une expression correcte !", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Attention!",
+                                            message: "Entrez une expression correcte !",
+                                            preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             return self.present(alertVC, animated: true, completion: nil)
         }
 
         guard calcul.expressionHaveEnoughElement(elements: elements) else {
-            let alertVC = UIAlertController(title: "Attention!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Attention!",
+                                            message: "Démarrez un nouveau calcul !",
+                                            preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             return self.present(alertVC, animated: true, completion: nil)
         }
