@@ -12,26 +12,18 @@ class SimpleCalc {
 
     // Check if the elements' order are correct
     func expressionIsCorrect(elements: [String]) -> Bool {
-        var isCorrect = true
+        guard !canAddOperator(elements: elements) else { return false }
 
         for index in 0...elements.count-1 {
-            if index % 2 == 0 {
-                if Double(elements[index]) == nil {
-                    isCorrect = false
-                }
+            if index % 2 == 0 && Double(elements[index]) == nil {
+                    return false
 
-            } else {
-                if elements[index] != "+" && elements[index] != "-"
+            } else if index % 2 != 0 && elements[index] != "+" && elements[index] != "-"
                     && elements[index] != "x" && elements[index] != "÷" {
-                    isCorrect = false
-                }
+                    return false
             }
         }
-
-        if !canAddOperator(elements: elements) {
-            return false
-        }
-        return isCorrect
+        return true
     }
 
     // Check if the expression have a correct number of elements
