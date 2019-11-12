@@ -9,25 +9,31 @@
 import UIKit
 
 class ViewController: UIViewController {
+
+    //===================
+    // View Variables
+    //===================
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
 
+    // An instance of simpleCalc
     let calcul = SimpleCalc()
 
+    // The elements which are in the textView
     var elements: [String] {
         return textView.text.split(separator: " ").map { "\($0)" }
     }
 
+    // Variable which says if the expression have a result
     var expressionHaveResult: Bool {
         return textView.text.firstIndex(of: "=") != nil
     }
 
-    // View Life cycles
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
+    //================
     // View actions
+    //================
+    
+    // The action of number buttons
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         guard let numberText = sender.title(for: .normal) else {
             return
@@ -44,6 +50,7 @@ class ViewController: UIViewController {
         }
     }
 
+    // The action of the operator buttons
     @IBAction func tappedOperatorButton(_ sender: UIButton) {
         guard !expressionHaveResult else { return }
 
@@ -60,6 +67,7 @@ class ViewController: UIViewController {
         }
     }
 
+    // The action of the equal button
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         guard calcul.expressionIsCorrect(elements: elements) else {
             return showAlert(message: "Entrez une expression correcte !")
@@ -76,6 +84,11 @@ class ViewController: UIViewController {
         }
     }
 
+    //================
+    // View functions
+    //================
+
+    // Function which shows an alert
     private func showAlert(message: String) {
         let alertVC = UIAlertController(title: "Attention!",
                                         message: message,

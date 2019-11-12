@@ -12,7 +12,7 @@ import XCTest
 class SimpleCalcTests: XCTestCase {
     let calcul = SimpleCalc()
 
-    //-----------------------
+    //========================
     // Test simple operations
     func testGivenElementsAreInOrderEightyEightPlusAndSix_WhenCalculIsCalled_ThenReturnShouldBeNinetyFour() {
         let elements = ["88", "+", "6"]
@@ -46,7 +46,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(result, "1.269")
     }
 
-    // ------------------------
+    //==========================
     // Test incorect expression
     func testGivenElementsAreInOrderPlusFiveAndSix_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = [ "+", "5", "6"]
@@ -96,7 +96,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    //------------
+    //========================
     // Test division by Zero
     func testGivenElementsAreInOrder74Multi68Div0_WhenCalculIsCalled_ThenReturnShouldBeNil() {
         let elements = ["74", "x", "68", "÷", "0"]
@@ -106,7 +106,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    // -----------------------
+    //=========================
     // Test complex operations
     func testGivenElementsAreInOrder66Plus94Less50_WhenCalculIsCalled_ThenReturnShouldBe110 () {
         let elements = [ "66", "+", "94", "-", "50"]
@@ -172,8 +172,77 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(result, "-21389.483")
     }
 
-    //---------------------------
-    // Test verification fonction
+    //============================
+    // Test verification function
+
+    // Test function expressionIsCorrect
+    func testGivenElementsAre47Plus29Div_WhenExpressionIsCorrectIsCalled_ThenReturnShouldBeFalse() {
+        let elements = ["47", "+", "29", "÷"]
+
+        let expressionIsCorrect = calcul.expressionIsCorrect(elements: elements)
+
+        XCTAssertFalse(expressionIsCorrect)
+    }
+
+    func testGivenElementsAre200PlusDiv32And16_WhenExpressionIsCorrectIsCalled_ThenReturnShouldBeFalse() {
+        let elements = ["200", "+", "÷", "32", "16"]
+
+        let expressionIsCorrect = calcul.expressionIsCorrect(elements: elements)
+
+        XCTAssertFalse(expressionIsCorrect)
+    }
+
+    func testGivenElementsAre407Div10And56_WhenExpressionIsCorrectIsCalled_ThenReturnShouldBeFalse() {
+        let elements = [ "407", "÷", "10", "56"]
+
+        let expressionIsCorrect = calcul.expressionIsCorrect(elements: elements)
+
+        XCTAssertFalse(expressionIsCorrect)
+    }
+
+    func testGivenElementsAre62Multi17Plus513_WhenExpressionIsCorrectIsCalled_ThenReturnShouldBeTrue() {
+        let elements = ["62", "x", "17", "+", "513"]
+
+        let expressionIsCorrect = calcul.expressionIsCorrect(elements: elements)
+
+        XCTAssertTrue(expressionIsCorrect)
+    }
+
+    // Test function expressionHaveEnoughElement
+    func testGivenElementsAre305Plus_WhenExpressionHaveEnoughElementIsCalled_ThenReturnShouldBeFalse() {
+        let elements = ["305", "+"]
+
+        let expressionHaveEnoughElement = calcul.expressionHaveEnoughElement(elements: elements)
+
+        XCTAssertFalse(expressionHaveEnoughElement)
+    }
+
+    func testGivenElementsAre267Plus10Less119_WhenExpressionHaveEnoughElementIsCalled_ThenReturnShouldBeTrue() {
+        let elements = ["267", "+", "10", "-", "119"]
+
+        let expressionHaveEnoughElement = calcul.expressionHaveEnoughElement(elements: elements)
+
+        XCTAssertTrue(expressionHaveEnoughElement)
+    }
+
+    // Test function canAddOperator
+    func testGivenElementsAre26Less142_WhenCanAddOperatorIsCalled_ThenReturnShouldBeTrue() {
+        let elements = ["26", "-", "142"]
+
+        let canAddOperator = calcul.canAddOperator(elements: elements)
+
+        XCTAssertTrue(canAddOperator)
+    }
+
+    func testGivenElementsAre314Plus19Multi_WhenCanAddOperatorIsCalled_ThenReturnShouldBeFalse() {
+        let elements = ["314", "+", "19", "x"]
+
+        let canAddOperator = calcul.canAddOperator(elements: elements)
+
+        XCTAssertFalse(canAddOperator)
+    }
+
+    // Test function lastElementIsDivision
     func testGivenElementsAre52Div200Div_WhenLastElementIsDivisionIsCalled_ThenReturnShouldBeTrue() {
         let elements = ["52", "÷", "200", "÷"]
 
