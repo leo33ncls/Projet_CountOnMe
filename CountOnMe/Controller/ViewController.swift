@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     //================
     // View actions
     //================
-    
+
     // The action of number buttons
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         guard let numberText = sender.title(for: .normal) else {
